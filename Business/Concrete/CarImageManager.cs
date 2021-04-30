@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.FileHelper;
@@ -28,12 +29,12 @@ namespace Business.Concrete
             _fileHelper = fileHelper;
         }
 
-        //[ValidationAspect(typeof(CarImageValidator))]
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var imageCount = _carImageDAL.GetAll(c => c.CarId == carImage.CarId).Count;
 
-            if (imageCount >= 5)
+            if (imageCount >= 12)
             {
                 return new ErrorResult("One car must have 5 or less images");
             }
@@ -49,7 +50,7 @@ namespace Business.Concrete
             return new SuccesResult(Messages.CarImageAdded);
         }
 
-        //[ValidationAspect(typeof(CarImageValidator))]Sonradan ekle
+        [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<CarImage> Get(int id)
         {
             return new SuccesDataResult<CarImage>(_carImageDAL.Get(c => c.Id == id));

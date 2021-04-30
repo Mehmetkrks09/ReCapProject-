@@ -30,11 +30,11 @@ IBrandService brandService)
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId), CheckIfCarNameExists(car.Id), CheckIfBrandLimitExcided());
-            if (result != null)
-            {
-                return result;
-            }
+            //IResult result = BusinessRules.Run(CheckIfCarCountOfBrandCorrect(car.BrandId), CheckIfCarNameExists(car.Id), CheckIfBrandLimitExcided());
+            //if (result != null)
+            //{
+            //    return result;
+            //}
             _carDal.Add(car);
             return new SuccesResult(Messages.CarAdded);
 
